@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="CustomerServiceImplService" targetNamespace="http://com.tata.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://com.tata.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema">
-  <import namespace="http://com.tata.ws/" schemaLocation="customerserviceimpl_schema1.xsd"/>
-</schema>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://com.tata.ws/" version="1.0" xmlns:tns="http://com.tata.ws/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="add" type="tns:add"/>
+
+  <xs:element name="addResponse" type="tns:addResponse"/>
+
+  <xs:element name="getName" type="tns:getName"/>
+
+  <xs:element name="getNameResponse" type="tns:getNameResponse"/>
+
+  <xs:element name="sub" type="tns:sub"/>
+
+  <xs:element name="subResponse" type="tns:subResponse"/>
+
+  <xs:complexType name="add">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+      <xs:element name="arg1" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sub">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+      <xs:element name="arg1" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="subResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
   </wsdl:types>
+  <wsdl:message name="addResponse">
+    <wsdl:part name="parameters" element="tns:addResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getNameResponse">
     <wsdl:part name="parameters" element="tns:getNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="add">
+    <wsdl:part name="parameters" element="tns:add">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sub">
+    <wsdl:part name="parameters" element="tns:sub">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subResponse">
+    <wsdl:part name="parameters" element="tns:subResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getName">
@@ -14,6 +80,18 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="CustomerService">
+    <wsdl:operation name="add">
+      <wsdl:input name="add" message="tns:add">
+    </wsdl:input>
+      <wsdl:output name="addResponse" message="tns:addResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sub">
+      <wsdl:input name="sub" message="tns:sub">
+    </wsdl:input>
+      <wsdl:output name="subResponse" message="tns:subResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getName">
       <wsdl:input name="getName" message="tns:getName">
     </wsdl:input>
@@ -23,8 +101,26 @@
   </wsdl:portType>
   <wsdl:binding name="CustomerServiceImplServiceSoapBinding" type="tns:CustomerService">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="add">
+      <soap:operation soapAction="urn:Add" style="document"/>
+      <wsdl:input name="add">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sub">
+      <soap:operation soapAction="urn:Sub" style="document"/>
+      <wsdl:input name="sub">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="subResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getName">
-      <soap:operation soapAction="" style="document"/>
+      <soap:operation soapAction="urn:GetName" style="document"/>
       <wsdl:input name="getName">
         <soap:body use="literal"/>
       </wsdl:input>
